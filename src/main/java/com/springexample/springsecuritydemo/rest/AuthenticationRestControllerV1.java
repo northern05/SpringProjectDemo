@@ -1,10 +1,9 @@
 package com.springexample.springsecuritydemo.rest;
 
-import com.springexample.springsecuritydemo.model.User;
+import com.springexample.springsecuritydemo.model.entity.User;
 import com.springexample.springsecuritydemo.repository.UserRepository;
 import com.springexample.springsecuritydemo.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

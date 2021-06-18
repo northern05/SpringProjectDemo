@@ -1,5 +1,6 @@
-package com.springexample.springsecuritydemo.model;
+package com.springexample.springsecuritydemo.model.enam;
 
+import com.springexample.springsecuritydemo.model.enam.Permission;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;

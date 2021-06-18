@@ -1,7 +1,7 @@
 package com.springexample.springsecuritydemo.security;
 
-import com.springexample.springsecuritydemo.model.Status;
-import com.springexample.springsecuritydemo.model.User;
+import com.springexample.springsecuritydemo.model.enam.Status;
+import com.springexample.springsecuritydemo.model.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

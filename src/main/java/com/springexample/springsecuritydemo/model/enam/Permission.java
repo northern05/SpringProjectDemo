@@ -1,4 +1,4 @@
-package com.springexample.springsecuritydemo.model;
+package com.springexample.springsecuritydemo.model.enam;
 
 public enum Permission {
     DEVELOPERS_READ("developers:read"),
