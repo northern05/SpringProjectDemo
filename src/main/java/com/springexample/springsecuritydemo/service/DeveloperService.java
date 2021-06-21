@@ -10,7 +10,11 @@ import java.util.List;
 @Service
 public class DeveloperService {
     @Autowired
-    private DeveloperRepository repository;
+    private final DeveloperRepository repository;
+
+    public DeveloperService(DeveloperRepository repository) {
+        this.repository = repository;
+    }
 
     public Developer saveDeveloper (Developer developer){
         return repository.save(developer);
