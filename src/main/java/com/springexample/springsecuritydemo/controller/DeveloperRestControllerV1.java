@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/api/v1/developers")
+@RequestMapping("/api/v1")
 public class DeveloperRestControllerV1 {
 
     @Autowired
