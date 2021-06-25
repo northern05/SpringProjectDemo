@@ -1,9 +1,14 @@
 package com.springexample.springsecuritydemo.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "developers")
@@ -19,4 +24,10 @@ public class Developer {
     @Column(name = "email")
     private  String email;
 
+    @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Project> projectList;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

@@ -36,9 +36,8 @@ public class DeveloperService {
         return repository.findByEmail(email);
     }
 
-    public String deleteDeveloper(Long id){
+    public void deleteDeveloper(Long id){
         repository.deleteById(id);
-        return "Developer removed.";
     }
 
     public Developer updateDeveloper (Developer developer){

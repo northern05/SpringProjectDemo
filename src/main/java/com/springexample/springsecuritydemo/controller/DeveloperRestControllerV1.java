@@ -23,7 +23,7 @@ public class DeveloperRestControllerV1 {
         return service.getDevelopers();
     }
 
-    @GetMapping("/developer/{id}")
+    @GetMapping("/developers/{id}")
     @PreAuthorize("hasAuthority('developers.read')")
     public Developer getById(@PathVariable Long id){
         return service.getDeveloperById(id);
@@ -54,7 +54,7 @@ public class DeveloperRestControllerV1 {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('developers.write')")
-    public String deleteById(@PathVariable Long id){
-        return service.deleteDeveloper(id);
+    public void deleteById(@PathVariable Long id){
+        service.deleteDeveloper(id);
     }
 }
