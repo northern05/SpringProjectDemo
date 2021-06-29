@@ -47,7 +47,7 @@ public class ProjectRestController {
         return  projectService.saveProjects(projectDTOList);
     }
 
-    @PostMapping("/projects")
+    @PatchMapping("/projects")
     @PreAuthorize("hasAuthority('projects.write')")
     public Project updateProject(@RequestBody ProjectDTO projectDTO){
         return projectService.updateProject(projectDTO);

@@ -1,15 +1,11 @@
 package com.springexample.springsecuritydemo.model.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 @Entity
 @Table(name = "developers")
@@ -26,7 +22,7 @@ public class Developer {
     private  String email;
 
     @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Project> projectList;
+    private Set<Project> projectSet;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")

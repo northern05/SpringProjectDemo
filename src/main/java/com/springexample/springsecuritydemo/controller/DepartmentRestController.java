@@ -47,7 +47,7 @@ public class DepartmentRestController {
         return departmentService.saveDepartments(departmentDTO);
     }
 
-    @PostMapping("/departments")
+    @PatchMapping("/departments")
     @PreAuthorize("hasAuthority('department.write')")
     public Department updateDepartment(@RequestBody DepartmentDTO departmentDTO){
         return departmentService.updateDepartment(departmentDTO);

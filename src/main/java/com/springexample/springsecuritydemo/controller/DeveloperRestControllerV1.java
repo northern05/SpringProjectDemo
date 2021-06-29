@@ -55,7 +55,7 @@ public class DeveloperRestControllerV1 {
         return service.saveDevelopers(developersDTO);
     }
 
-    @PostMapping("/developers")
+    @PatchMapping  ("/developers")
     @PreAuthorize("hasAuthority('developers.write')")
     public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO){
         return  service.updateDeveloper(developerDTO);
