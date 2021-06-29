@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class Developer {
     private  String email;
 
     @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Project> projectList;
+    private Set<Project> projectList;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")

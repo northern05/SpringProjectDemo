@@ -2,14 +2,13 @@ package com.springexample.springsecuritydemo.model.entity;
 
 import com.springexample.springsecuritydemo.model.enam.Role;
 import com.springexample.springsecuritydemo.model.enam.Status;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 @Entity
 @Table(name = "users")

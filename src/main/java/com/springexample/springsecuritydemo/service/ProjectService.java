@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
-    @Autowired
+
     private final ProjectRepository repository;
     private final ProjectMapping projectMapping;
 
@@ -23,12 +23,12 @@ public class ProjectService {
         this.projectMapping = projectMapping;
     }
 
-    public Project saveProject (Project project){
-        return repository.save(project);
+    public Project saveProject (ProjectDTO projectDTO){
+        return repository.save(projectMapping.mapToProjectEntity(projectDTO));
     }
 
-    public List<Project> saveProjects(List<Project> project) {
-        return repository.saveAll(project);
+    public List<Project> saveProjects(List<ProjectDTO> projectDTOList) {
+        return repository.saveAll(projectDTOList.stream().map(projectMapping::mapToProjectEntity).collect(Collectors.toSet()));
     }
 
     public List<ProjectDTO> getProjects(){
@@ -46,12 +46,11 @@ public class ProjectService {
         repository.deleteById(id);
     }
 
-    public Project updateProject (Project project) {
-        Project existingProject = repository.findById(project.getId()).orElse(null);
-        existingProject.setName(project.getName());
-        existingProject.setDescription(project.getDescription());
-        existingProject.setProjectLink(project.getProjectLink());
-        existingProject.setDeveloperSet(project.getDeveloperSet());
+    public Project updateProject (ProjectDTO projectDTO) {
+        Project existingProject = repository.findById(projectMapping.mapToProjectEntity(projectDTO).getId()).orElse(null);
+        existingProject.setName(projectDTO.getName());
+        existingProject.setDescription(projectDTO.getDescription());
+        existingProject.setProjectLink(projectDTO.getLink());
         return repository.save(existingProject);
     }
 }

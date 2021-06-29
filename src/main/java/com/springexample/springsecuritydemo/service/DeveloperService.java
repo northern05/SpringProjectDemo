@@ -1,10 +1,11 @@
 package com.springexample.springsecuritydemo.service;
 
 import com.springexample.springsecuritydemo.dto.DeveloperDTO;
+import com.springexample.springsecuritydemo.dto.ProjectDTO;
 import com.springexample.springsecuritydemo.dto.utils.DeveloperMapping;
+import com.springexample.springsecuritydemo.dto.utils.ProjectMapping;
 import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.repository.DeveloperRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,22 +13,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class DeveloperService {
-    @Autowired
-    private final DeveloperRepository repository;
-    @Autowired
-    private final DeveloperMapping developerMapping;
 
-    public DeveloperService(DeveloperRepository repository, DeveloperMapping developerMapping) {
+    private final DeveloperRepository repository;
+    private final DeveloperMapping developerMapping;
+    private final ProjectMapping projectMapping;
+
+    public DeveloperService(DeveloperRepository repository, DeveloperMapping developerMapping, ProjectMapping projectMapping) {
         this.repository = repository;
         this.developerMapping = developerMapping;
+        this.projectMapping = projectMapping;
     }
 
-    public Developer saveDeveloper (Developer developer){
-        return repository.save(developer);
+    public Developer saveDeveloper (DeveloperDTO developer){
+        return repository.save(developerMapping.mapToDeveloperEntity(developer));
     }
 
-    public List<Developer> saveDevelopers(List<Developer> developers) {
-        return repository.saveAll(developers);
+    public List<Developer> saveDevelopers(List<DeveloperDTO> developersDTO) {
+        //return developersDTO.forEach(developerDTO -> repository.save(developerMapping.mapToDeveloperEntity(developerDTO)));
+         return repository.saveAll(developersDTO.stream().map(developerMapping::mapToDeveloperEntity).collect(Collectors.toList()));
     }
 
     public List<DeveloperDTO> getDevelopers(){
@@ -42,17 +45,21 @@ public class DeveloperService {
         return developerMapping.mapToDeveloperDTO(repository.findByEmail(email));
     }
 
+    public List<ProjectDTO> getProjectsByDeveloperId(Long id){
+        return repository.getById(id).getProjectList().stream().map(projectMapping::mapToProjectDTO).collect(Collectors.toList());
+    }
+
     public void deleteDeveloper(Long id){
         repository.deleteById(id);
     }
 
-    public Developer updateDeveloper (Developer developer){
-        Developer existingDeveloper = repository.findById(developer.getId()).orElse(null);
-        existingDeveloper.setEmail(developer.getEmail());
-        existingDeveloper.setFirstName(developer.getFirstName());
-        existingDeveloper.setLastName(developer.getLastName());
-        existingDeveloper.setProjectList(developer.getProjectList());
-        existingDeveloper.setDepartment(developer.getDepartment());
+    public Developer updateDeveloper (DeveloperDTO developerDTO){
+        Developer existingDeveloper = repository.findById(developerMapping.mapToDeveloperEntity(developerDTO).getId()).orElse(null);
+        existingDeveloper.setEmail(developerMapping.mapToDeveloperEntity(developerDTO).getEmail());
+        existingDeveloper.setFirstName(developerMapping.mapToDeveloperEntity(developerDTO).getFirstName());
+        existingDeveloper.setLastName(developerMapping.mapToDeveloperEntity(developerDTO).getLastName());
+        existingDeveloper.setProjectList(developerMapping.mapToDeveloperEntity(developerDTO).getProjectList());
+        existingDeveloper.setDepartment(developerMapping.mapToDeveloperEntity(developerDTO).getDepartment());
         return  repository.save(existingDeveloper);
     }
 }

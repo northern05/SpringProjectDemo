@@ -1,14 +1,11 @@
 package com.springexample.springsecuritydemo.model.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 @Entity
 @Table(name = "department")
@@ -24,6 +21,6 @@ public class Department {
     private String Description;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
-    private List<Developer> developers;
+    private Set<Developer> developers;
 
 }
