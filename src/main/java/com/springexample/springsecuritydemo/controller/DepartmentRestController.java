@@ -19,43 +19,43 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/departmens")
-    public List<DepartmentDTO> getAll(){
+    public List<DepartmentDTO> getAll() {
         return departmentService.getDepartments();
     }
 
     @GetMapping("/department/{id}")
     @PreAuthorize("hasAuthority('department.read')")
-    public DepartmentDTO getDepartmentById(@PathVariable Long id){
-        return  departmentService.findDepartmentById(id);
+    public DepartmentDTO getDepartmentById(@PathVariable Long id) {
+        return departmentService.findDepartmentById(id);
     }
 
     @GetMapping("/department/{name}")
     @PreAuthorize("hasAuthority('department.read')")
-    public DepartmentDTO getDepartmentById(@PathVariable String name){
-        return  departmentService.getDepartmentByName(name);
+    public DepartmentDTO getDepartmentById(@PathVariable String name) {
+        return departmentService.getDepartmentByName(name);
     }
 
     @PostMapping("/department")
     @PreAuthorize("hasAuthority('department.write')")
-    public Department addDepartment(@RequestBody DepartmentDTO departmentDTO){
+    public Department addDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.saveDepartment(departmentDTO);
     }
 
     @PostMapping("/departments")
     @PreAuthorize("hasAuthority('department.write')")
-    public List<Department> addDepartment(@RequestBody List<DepartmentDTO> departmentDTO){
+    public List<Department> addDepartment(@RequestBody List<DepartmentDTO> departmentDTO) {
         return departmentService.saveDepartments(departmentDTO);
     }
 
     @PatchMapping("/departments")
     @PreAuthorize("hasAuthority('department.write')")
-    public Department updateDepartment(@RequestBody DepartmentDTO departmentDTO){
+    public Department updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.updateDepartment(departmentDTO);
     }
 
     @DeleteMapping("/departments/{id}")
     @PreAuthorize("hasAuthority('department.write')")
-    public void deleteDepartmentById(@PathVariable Long id){
+    public void deleteDepartmentById(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
     }
 

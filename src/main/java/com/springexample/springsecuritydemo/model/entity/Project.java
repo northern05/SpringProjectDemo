@@ -21,7 +21,7 @@ public class Project {
     private  String description;
     @Column(name = "project_link")
     private String projectLink;
-    @ManyToMany(mappedBy = "projectSet", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "developers_projects",
                 joinColumns = @JoinColumn(name = "project_id"),
                 inverseJoinColumns = @JoinColumn(name = "developer_id"))

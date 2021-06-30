@@ -18,7 +18,7 @@ public class DeveloperDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private  String email;
+    private String email;
     private DepartmentDTO departmentDTO;
     private Set<ProjectDTO> projectDTOList;
 

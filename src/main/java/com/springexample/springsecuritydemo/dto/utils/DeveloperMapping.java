@@ -9,31 +9,31 @@ import java.util.stream.Collectors;
 @Service
 public class DeveloperMapping {
 
-    private  ProjectMapping projectMapping;
+    private ProjectMapping projectMapping;
 
     public DeveloperMapping(ProjectMapping projectMapping) {
         this.projectMapping = projectMapping;
     }
 
-    public DeveloperDTO mapToDeveloperDTO (Developer developer){
+    public DeveloperDTO mapToDeveloperDTO(Developer developer) {
         DeveloperDTO dto = new DeveloperDTO();
         dto.setId(developer.getId());
         dto.setEmail(developer.getEmail());
         dto.setFirstName(developer.getFirstName());
         dto.setLastName(developer.getLastName());
-        dto.setProjectDTOList(developer.getProjectList()
+        dto.setProjectDTOList(developer.getProjectSet()
                 .stream().map(projectMapping::mapToProjectDTO)
                 .collect(Collectors.toSet()));
-        return  dto;
+        return dto;
     }
 
-    public Developer mapToDeveloperEntity(DeveloperDTO developerDTO){
+    public Developer mapToDeveloperEntity(DeveloperDTO developerDTO) {
         Developer entity = new Developer();
         entity.setId(developerDTO.getId());
         entity.setEmail(developerDTO.getEmail());
         entity.setFirstName(developerDTO.getFirstName());
         entity.setLastName(developerDTO.getLastName());
-        entity.setProjectList(developerDTO.getProjectDTOList()
+        entity.setProjectSet(developerDTO.getProjectDTOList()
                 .stream().map(projectMapping::mapToProjectEntity)
                 .collect(Collectors.toSet()));
         return entity;

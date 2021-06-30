@@ -15,7 +15,7 @@ public class DepartmentMapping {
         this.developerMapping = developerMapping;
     }
 
-    public DepartmentDTO mapToDepartmentDTO(Department department){
+    public DepartmentDTO mapToDepartmentDTO(Department department) {
         DepartmentDTO departmentDTO = new DepartmentDTO();
         departmentDTO.setId(department.getId());
         departmentDTO.setName(department.getName());
@@ -26,7 +26,7 @@ public class DepartmentMapping {
         return departmentDTO;
     }
 
-    public Department mapToDepartmentEntity(DepartmentDTO departmentDTO){
+    public Department mapToDepartmentEntity(DepartmentDTO departmentDTO) {
         Department entity = new Department();
         entity.setId(departmentDTO.getId());
         entity.setName(departmentDTO.getName());

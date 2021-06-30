@@ -21,31 +21,36 @@ public class ProjectService {
         this.projectMapping = projectMapping;
     }
 
-    public Project saveProject (ProjectDTO projectDTO){
+    public Project saveProject(ProjectDTO projectDTO) {
         return repository.save(projectMapping.mapToProjectEntity(projectDTO));
     }
 
     public List<Project> saveProjects(List<ProjectDTO> projectDTOList) {
-        return repository.saveAll(projectDTOList.stream().map(projectMapping::mapToProjectEntity).collect(Collectors.toSet()));
+        return repository.saveAll(projectDTOList.stream()
+                .map(projectMapping::mapToProjectEntity).collect(Collectors.toSet()));
     }
 
-    public List<ProjectDTO> getProjects(){
-        return repository.findAll().stream().map(projectMapping::mapToProjectDTO).collect(Collectors.toList());
+    public List<ProjectDTO> getProjects() {
+        return repository.findAll().stream()
+                .map(projectMapping::mapToProjectDTO).collect(Collectors.toList());
     }
 
-    public ProjectDTO getProjectById(Long id){
-        return projectMapping.mapToProjectDTO(repository.findById(id).orElseThrow(()-> new ProjectNotFoundException("Проект с id = " + id + " не найден")));
+    public ProjectDTO getProjectById(Long id) {
+        return projectMapping.mapToProjectDTO(repository.findById(id)
+                .orElseThrow(() -> new ProjectNotFoundException("Проект с id = " + id + " не найден")));
     }
-    public ProjectDTO getProjectByName(String name){
+
+    public ProjectDTO getProjectByName(String name) {
         return projectMapping.mapToProjectDTO(repository.findProjectByName(name));
     }
 
-    public void deleteProject(Long id){
+    public void deleteProject(Long id) {
         repository.deleteById(id);
     }
 
-    public Project updateProject (ProjectDTO projectDTO) {
-        Project existingProject = repository.findById(projectMapping.mapToProjectEntity(projectDTO).getId()).orElse(null);
+    public Project updateProject(ProjectDTO projectDTO) {
+        Project existingProject = repository.findById(projectMapping
+                .mapToProjectEntity(projectDTO).getId()).orElse(null);
         existingProject.setName(projectDTO.getName());
         existingProject.setDescription(projectDTO.getDescription());
         existingProject.setProjectLink(projectDTO.getLink());
