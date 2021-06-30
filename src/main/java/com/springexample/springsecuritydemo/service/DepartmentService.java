@@ -3,6 +3,7 @@ package com.springexample.springsecuritydemo.service;
 import com.springexample.springsecuritydemo.dto.DepartmentDTO;
 import com.springexample.springsecuritydemo.dto.utils.DepartmentMapping;
 import com.springexample.springsecuritydemo.dto.utils.DeveloperMapping;
+import com.springexample.springsecuritydemo.exception.DepartmentNotFoundException;
 import com.springexample.springsecuritydemo.model.entity.Department;
 import com.springexample.springsecuritydemo.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,9 @@ public class DepartmentService {
         return repository.findAll().stream().map(departmentMapping::mapToDepartmentDTO).collect(Collectors.toList());
     }
 
-    public DepartmentDTO getDepartmentById(Long id){
-        repository.findById(id).ifPresent(departmentMapping::mapToDepartmentDTO);
-        return departmentMapping.mapToDepartmentDTO(repository.findById(id).orElse(null));
+    public DepartmentDTO findDepartmentById(Long id){
+        //return repository.findById(id).ifPresent(departmentMapping::mapToDepartmentDTO);
+       return departmentMapping.mapToDepartmentDTO(repository.findById(id).orElseThrow(() -> new DepartmentNotFoundException("Отдел c id= " + id + " не найден")));
     }
     public DepartmentDTO getDepartmentByName(String name){
         return departmentMapping.mapToDepartmentDTO(repository.findDepartmentByName(name));

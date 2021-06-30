@@ -4,6 +4,7 @@ import com.springexample.springsecuritydemo.dto.DeveloperDTO;
 import com.springexample.springsecuritydemo.dto.ProjectDTO;
 import com.springexample.springsecuritydemo.dto.utils.DeveloperMapping;
 import com.springexample.springsecuritydemo.dto.utils.ProjectMapping;
+import com.springexample.springsecuritydemo.exception.DeveloperNotFoundException;
 import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.repository.DeveloperRepository;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class DeveloperService {
     }
 
     public DeveloperDTO getDeveloperById(Long id){
-        return developerMapping.mapToDeveloperDTO(repository.findById(id).orElse(null));
+        return developerMapping.mapToDeveloperDTO(repository.findById(id).orElseThrow(()-> new DeveloperNotFoundException("Разработчик c id= " + id + " не найден")));
     }
 
     public DeveloperDTO getDeveloperByEmail(String email){
@@ -46,7 +47,7 @@ public class DeveloperService {
     }
 
     public List<ProjectDTO> getProjectsByDeveloperId(Long id){
-        return repository.getById(id).getProjectList().stream().map(projectMapping::mapToProjectDTO).collect(Collectors.toList());
+        return repository.getById(id).getProjectSet().stream().map(projectMapping::mapToProjectDTO).collect(Collectors.toList());
     }
 
     public void deleteDeveloper(Long id){
@@ -58,7 +59,7 @@ public class DeveloperService {
         existingDeveloper.setEmail(developerMapping.mapToDeveloperEntity(developerDTO).getEmail());
         existingDeveloper.setFirstName(developerMapping.mapToDeveloperEntity(developerDTO).getFirstName());
         existingDeveloper.setLastName(developerMapping.mapToDeveloperEntity(developerDTO).getLastName());
-        existingDeveloper.setProjectList(developerMapping.mapToDeveloperEntity(developerDTO).getProjectList());
+        existingDeveloper.setProjectSet(developerMapping.mapToDeveloperEntity(developerDTO).getProjectSet());
         existingDeveloper.setDepartment(developerMapping.mapToDeveloperEntity(developerDTO).getDepartment());
         return  repository.save(existingDeveloper);
     }

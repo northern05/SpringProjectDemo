@@ -26,7 +26,7 @@ public class DepartmentRestController {
     @GetMapping("/department/{id}")
     @PreAuthorize("hasAuthority('department.read')")
     public DepartmentDTO getDepartmentById(@PathVariable Long id){
-        return  departmentService.getDepartmentById(id);
+        return  departmentService.findDepartmentById(id);
     }
 
     @GetMapping("/department/{name}")

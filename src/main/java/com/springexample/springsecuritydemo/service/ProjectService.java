@@ -1,12 +1,10 @@
 package com.springexample.springsecuritydemo.service;
 
-import com.springexample.springsecuritydemo.dto.DepartmentDTO;
 import com.springexample.springsecuritydemo.dto.ProjectDTO;
 import com.springexample.springsecuritydemo.dto.utils.ProjectMapping;
-import com.springexample.springsecuritydemo.model.entity.Department;
+import com.springexample.springsecuritydemo.exception.ProjectNotFoundException;
 import com.springexample.springsecuritydemo.model.entity.Project;
 import com.springexample.springsecuritydemo.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +34,7 @@ public class ProjectService {
     }
 
     public ProjectDTO getProjectById(Long id){
-        return projectMapping.mapToProjectDTO(repository.findById(id).orElse(null));
+        return projectMapping.mapToProjectDTO(repository.findById(id).orElseThrow(()-> new ProjectNotFoundException("Проект с id = " + id + " не найден")));
     }
     public ProjectDTO getProjectByName(String name){
         return projectMapping.mapToProjectDTO(repository.findProjectByName(name));
