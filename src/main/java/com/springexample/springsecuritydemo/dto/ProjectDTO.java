@@ -1,13 +1,7 @@
 package com.springexample.springsecuritydemo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
-import java.util.List;
-
-@JsonSerialize
-@JsonDeserialize
 @Data
 @ToString
 @AllArgsConstructor
