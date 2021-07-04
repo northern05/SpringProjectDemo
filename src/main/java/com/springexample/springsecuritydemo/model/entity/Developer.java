@@ -1,6 +1,7 @@
 package com.springexample.springsecuritydemo.model.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,9 +10,10 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "developers")
+//@ToString(exclude = {"projectSet", "department"})
 public class Developer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "first_name")
@@ -21,10 +23,10 @@ public class Developer {
     @Column(name = "email")
     private  String email;
 
-    @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Project> projectSet;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "department_id")
     private Department department;
 }

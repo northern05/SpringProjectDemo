@@ -1,6 +1,7 @@
 package com.springexample.springsecuritydemo.model.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,10 +10,11 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "department")
+@ToString(exclude = {"developers"})
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
