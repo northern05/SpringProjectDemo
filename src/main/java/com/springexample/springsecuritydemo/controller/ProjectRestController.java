@@ -24,7 +24,7 @@ public class ProjectRestController {
     }
 
 //    @GetMapping("/projects/{id}")
-//    @PreAuthorize("hasAuthority('projects.read')")
+//    @PreAuthorize("hasAuthority('projects:read')")
 //    public ProjectDTO getById(@PathVariable Long id) {
 //        return projectService.getProjectById(id);
 //    }

@@ -26,7 +26,7 @@ public class DeveloperRestControllerV1 {
     }
 
 //    @GetMapping("/developers/{id}")
-//    @PreAuthorize("hasAuthority('developers.read')")
+//    @PreAuthorize("hasAuthority('developers:read')")
 //    public DeveloperDTO getById(@PathVariable Long id){
 //        return service.getDeveloperById(id);
 //    }
