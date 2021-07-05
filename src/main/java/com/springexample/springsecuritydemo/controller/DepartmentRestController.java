@@ -18,43 +18,43 @@ public class DepartmentRestController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/departmens")
+    @GetMapping("/departments")
     public List<DepartmentDTO> getAll() {
         return departmentService.getDepartments();
     }
 
     @GetMapping("/department/{id}")
-    @PreAuthorize("hasAuthority('department.read')")
+    @PreAuthorize("hasAuthority('departments.read')")
     public DepartmentDTO getDepartmentById(@PathVariable Long id) {
         return departmentService.findDepartmentById(id);
     }
 
     @GetMapping("/department/{name}")
-    @PreAuthorize("hasAuthority('department.read')")
+    @PreAuthorize("hasAuthority('departments.read')")
     public DepartmentDTO getDepartmentById(@PathVariable String name) {
         return departmentService.getDepartmentByName(name);
     }
 
     @PostMapping("/department")
-    @PreAuthorize("hasAuthority('department.write')")
+    @PreAuthorize("hasAuthority('departments.write')")
     public Department addDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.saveDepartment(departmentDTO);
     }
 
     @PostMapping("/departments")
-    @PreAuthorize("hasAuthority('department.write')")
+    @PreAuthorize("hasAuthority('departments.write')")
     public List<Department> addDepartment(@RequestBody List<DepartmentDTO> departmentDTO) {
         return departmentService.saveDepartments(departmentDTO);
     }
 
     @PatchMapping("/departments")
-    @PreAuthorize("hasAuthority('department.write')")
+    @PreAuthorize("hasAuthority('departments.write')")
     public Department updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.updateDepartment(departmentDTO);
     }
 
     @DeleteMapping("/departments/{id}")
-    @PreAuthorize("hasAuthority('department.write')")
+    @PreAuthorize("hasAuthority('departments.write')")
     public void deleteDepartmentById(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
     }

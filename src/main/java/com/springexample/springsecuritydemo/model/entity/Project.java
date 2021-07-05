@@ -1,6 +1,8 @@
 package com.springexample.springsecuritydemo.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,6 +23,9 @@ public class Project {
     private  String description;
     @Column(name = "project_link")
     private String projectLink;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "developers_projects",
                 joinColumns = @JoinColumn(name = "project_id"),

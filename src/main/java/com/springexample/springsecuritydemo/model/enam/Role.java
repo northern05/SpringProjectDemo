@@ -8,11 +8,15 @@ import java.util.stream.Collectors;
 
 public enum Role {
     USER(Set.of(Permission.DEVELOPERS_READ,
-            Permission.PROJECTS_READ, Permission.PROJECT_WRITE,
-            Permission.DEPARTMENT_READ)),
-    ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE,
-            Permission.PROJECTS_READ, Permission.PROJECT_WRITE,
-            Permission.DEPARTMENT_READ, Permission.DEPARTMENT_WRITE));
+            Permission.PROJECTS_READ,
+            Permission.PROJECTS_WRITE,
+            Permission.DEPARTMENTS_READ)),
+    ADMIN(Set.of(Permission.DEVELOPERS_READ,
+            Permission.DEVELOPERS_WRITE,
+            Permission.PROJECTS_READ,
+            Permission.PROJECTS_WRITE,
+            Permission.DEPARTMENTS_READ,
+            Permission.DEPARTMENTS_WRITE));
 
     private final Set<Permission> permissions;
 
