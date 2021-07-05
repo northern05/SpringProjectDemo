@@ -23,13 +23,13 @@ public class DepartmentRestController {
         return departmentService.getDepartments();
     }
 
-    @GetMapping("/department/{id}")
+    @GetMapping("/departments/{id}")
     @PreAuthorize("hasAuthority('departments.read')")
     public DepartmentDTO getDepartmentById(@PathVariable Long id) {
         return departmentService.findDepartmentById(id);
     }
 
-    @GetMapping("/department/{name}")
+    @GetMapping("/departments/{name}")
     @PreAuthorize("hasAuthority('departments.read')")
     public DepartmentDTO getDepartmentById(@PathVariable String name) {
         return departmentService.getDepartmentByName(name);
