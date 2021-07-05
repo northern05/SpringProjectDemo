@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "developers")
-//@ToString(exclude = {"projectSet", "department"})
+@ToString(exclude = {"projectSet", "department"})
 public class Developer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
