@@ -61,7 +61,8 @@ public class DeveloperService {
 
     public Developer updateDeveloper(DeveloperDTO developerDTO) {
         Developer existingDeveloper = repository.findById(developerMapping
-                .mapToDeveloperEntity(developerDTO).getId()).orElse(null);
+                .mapToDeveloperEntity(developerDTO).getId()).orElseThrow(() ->
+                new DeveloperNotFoundException("Разработчик не найден"));
         existingDeveloper.setEmail(developerMapping.mapToDeveloperEntity(developerDTO).getEmail());
         existingDeveloper.setFirstName(developerMapping.mapToDeveloperEntity(developerDTO).getFirstName());
         existingDeveloper.setLastName(developerMapping.mapToDeveloperEntity(developerDTO).getLastName());

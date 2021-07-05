@@ -25,44 +25,44 @@ public class DeveloperRestControllerV1 {
         return service.getDevelopers();
     }
 
-    @GetMapping("/developers/{id}")
-    @PreAuthorize("hasAuthority('developers.read')")
-    public DeveloperDTO getById(@PathVariable Long id){
-        return service.getDeveloperById(id);
-    }
+//    @GetMapping("/developers/{id}")
+//    @PreAuthorize("hasAuthority('developers.read')")
+//    public DeveloperDTO getById(@PathVariable Long id){
+//        return service.getDeveloperById(id);
+//    }
 
     @GetMapping("/developers/{email}")
-    @PreAuthorize("hasAuthority('developers.read')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public DeveloperDTO getDeveloperByEmail(@PathVariable String email){
         return service.getDeveloperByEmail(email);
     }
 
     @GetMapping("/developers/{developerId}/projects")
-    @PreAuthorize("hasAuthority('developers.read')")
+    @PreAuthorize("hasAuthority('developers:read')")
     public List<ProjectDTO> getProjectsByDevelopersId(@PathVariable Long developerId){
         return service.getProjectsByDeveloperId(developerId);
     }
 
     @PostMapping("/developer")
-    @PreAuthorize("hasAuthority('developers.write')")
+    @PreAuthorize("hasAuthority('developers:write')")
     public Developer addDeveloper (@RequestBody DeveloperDTO developerDTO){
         return service.saveDeveloper(developerDTO);
     }
 
     @PostMapping("/developers")
-    @PreAuthorize("hasAuthority('developers.write')")
+    @PreAuthorize("hasAuthority('developers:write')")
     public List<Developer> addDevelopers (@RequestBody List<DeveloperDTO> developersDTO){
         return service.saveDevelopers(developersDTO);
     }
 
     @PatchMapping  ("/developers")
-    @PreAuthorize("hasAuthority('developers.write')")
+    @PreAuthorize("hasAuthority('developers:write')")
     public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO){
         return  service.updateDeveloper(developerDTO);
     }
 
     @DeleteMapping("/developers/{id}")
-    @PreAuthorize("hasAuthority('developers.write')")
+    @PreAuthorize("hasAuthority('developers:write')")
     public void deleteById(@PathVariable Long id){
         service.deleteDeveloper(id);
     }

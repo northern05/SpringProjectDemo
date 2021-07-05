@@ -23,38 +23,38 @@ public class DepartmentRestController {
         return departmentService.getDepartments();
     }
 
-    @GetMapping("/departments/{id}")
-    @PreAuthorize("hasAuthority('departments.read')")
-    public DepartmentDTO getDepartmentById(@PathVariable Long id) {
-        return departmentService.findDepartmentById(id);
-    }
+//    @GetMapping("/departments/{id}")
+//    @PreAuthorize("hasAuthority('departments.read')")
+//    public DepartmentDTO getDepartmentById(@PathVariable Long id) {
+//        return departmentService.findDepartmentById(id);
+//    }
 
     @GetMapping("/departments/{name}")
-    @PreAuthorize("hasAuthority('departments.read')")
+    @PreAuthorize("hasAuthority('departments:read')")
     public DepartmentDTO getDepartmentById(@PathVariable String name) {
         return departmentService.getDepartmentByName(name);
     }
 
     @PostMapping("/department")
-    @PreAuthorize("hasAuthority('departments.write')")
+    @PreAuthorize("hasAuthority('departments:write')")
     public Department addDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.saveDepartment(departmentDTO);
     }
 
     @PostMapping("/departments")
-    @PreAuthorize("hasAuthority('departments.write')")
+    @PreAuthorize("hasAuthority('departments:write')")
     public List<Department> addDepartment(@RequestBody List<DepartmentDTO> departmentDTO) {
         return departmentService.saveDepartments(departmentDTO);
     }
 
     @PatchMapping("/departments")
-    @PreAuthorize("hasAuthority('departments.write')")
+    @PreAuthorize("hasAuthority('departments:write')")
     public Department updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return departmentService.updateDepartment(departmentDTO);
     }
 
     @DeleteMapping("/departments/{id}")
-    @PreAuthorize("hasAuthority('departments.write')")
+    @PreAuthorize("hasAuthority('departments:write')")
     public void deleteDepartmentById(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
     }
