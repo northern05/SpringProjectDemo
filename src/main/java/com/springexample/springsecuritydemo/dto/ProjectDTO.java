@@ -12,4 +12,5 @@ public class ProjectDTO {
     private String name;
     private String description;
     private String link;
+    private String subject;
 }

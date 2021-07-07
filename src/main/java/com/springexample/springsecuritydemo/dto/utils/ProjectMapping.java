@@ -12,6 +12,7 @@ public class ProjectMapping {
         dto.setName(project.getName());
         dto.setDescription(project.getDescription());
         dto.setLink(project.getProjectLink());
+        dto.setSubject(project.getSubject());
         return dto;
     }
 
@@ -21,6 +22,7 @@ public class ProjectMapping {
         entity.setName(projectDTO.getName());
         entity.setDescription(projectDTO.getDescription());
         entity.setProjectLink(projectDTO.getLink());
+        entity.setSubject(projectDTO.getSubject());
         return  entity;
     }
 }

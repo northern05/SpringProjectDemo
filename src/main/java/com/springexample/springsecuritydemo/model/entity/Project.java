@@ -24,6 +24,9 @@ public class Project {
     @Column(name = "project_link")
     private String projectLink;
 
+    @Column(name = "subject")
+    private String subject;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
