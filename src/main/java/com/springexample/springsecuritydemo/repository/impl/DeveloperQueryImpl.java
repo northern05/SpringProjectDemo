@@ -38,10 +38,10 @@ public class DeveloperQueryImpl implements DeveloperQuery {
 
         Predicate emailPredicate = cb.equal(developerRoot.get("email"), email);
         criteriaQuery.where(emailPredicate);
-       List<DeveloperDTO> query = entityManager.createQuery(criteriaQuery)
-               .getResultList().stream()
-               .map(developerMapping::mapToDeveloperDTO)
-               .collect(Collectors.toList());
+        List<DeveloperDTO> query = entityManager.createQuery(criteriaQuery)
+                .getResultList().stream()
+                .map(developerMapping::mapToDeveloperDTO)
+                .collect(Collectors.toList());
         return query.get(0);
     }
 
@@ -128,7 +128,7 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         return new PageImpl<>(resultList, pageable, totalRows);
     }
 
-    public void deleteDeveloper (Long id){
+    public void deleteDeveloper(Long id) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaDelete<Developer> criteriaDelete = cb.createCriteriaDelete(Developer.class);
         Root<Developer> developerRoot = criteriaDelete.from(Developer.class);
@@ -140,7 +140,7 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         entityManager.close();
     }
 
-    public Developer updateDeveloper (DeveloperDTO developerDTO){
+    public Developer updateDeveloper(DeveloperDTO developerDTO) {
         Developer entity = developerMapping.mapToDeveloperEntity(developerDTO);
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaUpdate<Developer> criteriaUpdate = cb.createCriteriaUpdate(Developer.class);

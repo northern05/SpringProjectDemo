@@ -21,7 +21,7 @@ public class DeveloperRestControllerV1 {
 
 
     @GetMapping("/developers")
-    public List<DeveloperDTO> getAll(){
+    public List<DeveloperDTO> getAll() {
         return service.getDevelopers();
     }
 
@@ -33,37 +33,37 @@ public class DeveloperRestControllerV1 {
 
     @GetMapping("/developers/{email}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public DeveloperDTO getDeveloperByEmail(@PathVariable String email){
+    public DeveloperDTO getDeveloperByEmail(@PathVariable String email) {
         return service.getDeveloperByEmail(email);
     }
 
     @GetMapping("/developers/{developerId}/projects")
     @PreAuthorize("hasAuthority('developers:read')")
-    public List<ProjectDTO> getProjectsByDevelopersId(@PathVariable Long developerId){
+    public List<ProjectDTO> getProjectsByDevelopersId(@PathVariable Long developerId) {
         return service.getProjectsByDeveloperId(developerId);
     }
 
     @PostMapping("/developer")
     @PreAuthorize("hasAuthority('developers:write')")
-    public Developer addDeveloper (@RequestBody DeveloperDTO developerDTO){
+    public Developer addDeveloper(@RequestBody DeveloperDTO developerDTO) {
         return service.saveDeveloper(developerDTO);
     }
 
     @PostMapping("/developers")
     @PreAuthorize("hasAuthority('developers:write')")
-    public List<Developer> addDevelopers (@RequestBody List<DeveloperDTO> developersDTO){
+    public List<Developer> addDevelopers(@RequestBody List<DeveloperDTO> developersDTO) {
         return service.saveDevelopers(developersDTO);
     }
 
-    @PatchMapping  ("/developers")
+    @PatchMapping("/developers")
     @PreAuthorize("hasAuthority('developers:write')")
-    public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO){
-        return  service.updateDeveloper(developerDTO);
+    public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO) {
+        return service.updateDeveloper(developerDTO);
     }
 
     @DeleteMapping("/developers/{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public void deleteById(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id) {
         service.deleteDeveloper(id);
     }
 }

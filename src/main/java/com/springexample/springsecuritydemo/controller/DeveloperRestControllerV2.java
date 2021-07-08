@@ -22,13 +22,13 @@ public class DeveloperRestControllerV2 {
 
     @GetMapping("/developers")
     @PreAuthorize("hasAuthority('developers:read')")
-    public Page<DeveloperDTO> getDevelopers( @RequestParam(defaultValue = "0") Integer page,
-                                             @RequestParam(defaultValue = "3") Integer pageSize,
-                                             @RequestParam(required = false)  Developer.SortField sortField,
-                                             @RequestParam(defaultValue = "SortType.DESC")  SortType sortType,
-                                             @RequestParam(required = false) List< String > firstNamesFilter,
-                                             @RequestParam(required = false) List< String > departmentNamesFilter
-                                             ) {
+    public Page<DeveloperDTO> getDevelopers(@RequestParam(defaultValue = "0") Integer page,
+                                            @RequestParam(defaultValue = "3") Integer pageSize,
+                                            @RequestParam(required = false) Developer.SortField sortField,
+                                            @RequestParam(defaultValue = "SortType.DESC") SortType sortType,
+                                            @RequestParam(required = false) List<String> firstNamesFilter,
+                                            @RequestParam(required = false) List<String> departmentNamesFilter
+    ) {
         return developerQuery
                 .getDevelopers(page,
                         pageSize,
@@ -40,19 +40,19 @@ public class DeveloperRestControllerV2 {
 
     @GetMapping("/developers/{email}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public DeveloperDTO getDeveloperByEmail(String email){
+    public DeveloperDTO getDeveloperByEmail(String email) {
         return developerQuery.findByEmail(email);
     }
 
-    @PatchMapping  ("/developers")
+    @PatchMapping("/developers")
     @PreAuthorize("hasAuthority('developers:write')")
-    public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO){
-        return  developerQuery.updateDeveloper(developerDTO);
+    public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO) {
+        return developerQuery.updateDeveloper(developerDTO);
     }
 
     @DeleteMapping("/developers/{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public void deleteById(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id) {
         developerQuery.deleteDeveloper(id);
     }
 }

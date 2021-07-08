@@ -30,7 +30,7 @@ public class ProjectRestController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "3") Integer size,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
-            ) {
+    ) {
         return projectService.getProjects(subject, page, size, pageable);
     }
 
