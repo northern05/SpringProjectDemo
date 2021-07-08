@@ -22,7 +22,7 @@ public class Developer {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "email")
-    private  String email;
+    private String email;
 
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "developerSet", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -32,4 +32,8 @@ public class Developer {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    public enum SortField {
+        firstName, lastName, department, email
+    }
 }

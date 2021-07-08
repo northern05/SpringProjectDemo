@@ -24,6 +24,7 @@ public class ProjectRestController {
     }
 
     @GetMapping("/projects")
+    @PreAuthorize("hasAuthority('projects:read')")
     public ResponseEntity<Map<String, Object>> getAll(
             @RequestParam(required = false) String subject,
             @RequestParam(defaultValue = "0") Integer page,
