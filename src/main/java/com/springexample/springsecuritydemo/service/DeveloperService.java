@@ -5,11 +5,19 @@ import com.springexample.springsecuritydemo.dto.ProjectDTO;
 import com.springexample.springsecuritydemo.dto.utils.DeveloperMapping;
 import com.springexample.springsecuritydemo.dto.utils.ProjectMapping;
 import com.springexample.springsecuritydemo.exception.DeveloperNotFoundException;
+import com.springexample.springsecuritydemo.model.enam.SortType;
 import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.repository.DeveloperRepository;
+import com.springexample.springsecuritydemo.repository.impl.DeveloperQueryImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,13 +26,15 @@ public class DeveloperService {
     private final DeveloperRepository repository;
     private final DeveloperMapping developerMapping;
     private final ProjectMapping projectMapping;
+    private final DeveloperQueryImpl developerQuery;
 
     public DeveloperService(DeveloperRepository repository,
                             DeveloperMapping developerMapping,
-                            ProjectMapping projectMapping) {
+                            ProjectMapping projectMapping, DeveloperQueryImpl developerQuery) {
         this.repository = repository;
         this.developerMapping = developerMapping;
         this.projectMapping = projectMapping;
+        this.developerQuery = developerQuery;
     }
 
     public Developer saveDeveloper(DeveloperDTO developer) {
@@ -69,5 +79,29 @@ public class DeveloperService {
         existingDeveloper.setProjectSet(developerMapping.mapToDeveloperEntity(developerDTO).getProjectSet());
         existingDeveloper.setDepartment(developerMapping.mapToDeveloperEntity(developerDTO).getDepartment());
         return repository.save(existingDeveloper);
+    }
+
+    /*Сервис с использованием Criteria Query**/
+
+
+    public Page<DeveloperDTO> getAllDevelopersQuery(Integer page,
+                                                    Integer pageSize,
+                                                    Developer.SortField sortField,
+                                                    SortType sortType,
+                                                    List<String> firstNamesFilter,
+                                                    List<String> departmentNamesFilter){
+        return developerQuery.getDevelopers(page, pageSize, sortField, sortType, firstNamesFilter, departmentNamesFilter);
+    }
+
+    public DeveloperDTO getDeveloperByEmailQuery(String email) {
+        return developerQuery.findByEmail(email);
+    }
+
+    public void deleteDeveloperQuery(Long id) {
+        developerQuery.deleteDeveloper(id);
+    }
+
+    public void updateDeveloperQuery(DeveloperDTO developerDTO){
+        developerQuery.updateDeveloper(developerDTO);
     }
 }
