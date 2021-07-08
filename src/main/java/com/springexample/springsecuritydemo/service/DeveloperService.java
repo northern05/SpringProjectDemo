@@ -10,14 +10,9 @@ import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.repository.DeveloperRepository;
 import com.springexample.springsecuritydemo.repository.impl.DeveloperQueryImpl;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,10 +46,10 @@ public class DeveloperService {
         return repository.findAll().stream().map(developerMapping::mapToDeveloperDTO).collect(Collectors.toList());
     }
 
-    public DeveloperDTO getDeveloperById(Long id) {
-        return developerMapping.mapToDeveloperDTO(repository.findById(id)
-                .orElseThrow(() -> new DeveloperNotFoundException("Разработчик c id= " + id + " не найден")));
-    }
+//    public DeveloperDTO getDeveloperById(Long id) {
+//        return developerMapping.mapToDeveloperDTO(repository.findById(id)
+//                .orElseThrow(() -> new DeveloperNotFoundException("Разработчик c id= " + id + " не найден")));
+//    }
 
     public DeveloperDTO getDeveloperByEmail(String email) {
         return developerMapping.mapToDeveloperDTO(repository.findByEmail(email));

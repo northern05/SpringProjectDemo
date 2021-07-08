@@ -68,7 +68,7 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         }
 
         if (departmentNamesFilter != null && departmentNamesFilter.size() != 0) {
-            CriteriaBuilder.In<String> inClause = cb.in(developerRoot.get("department"));
+            CriteriaBuilder.In<String> inClause = cb.in(developerRoot.get("department").get("name"));
             departmentNamesFilter.forEach(inClause::value);
             predicates.add(inClause);
         }
@@ -76,7 +76,7 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         criteriaQuery.where(cb.and(predicates.toArray(new Predicate[0])));
 
         if (sortType == null) {
-            criteriaQuery.orderBy(cb.desc(developerRoot.get("latName")));
+            criteriaQuery.orderBy(cb.desc(developerRoot.get("lastName")));
         }
 
         if (sortType == SortType.ASC) {

@@ -26,8 +26,8 @@ public class DeveloperRestControllerV2 {
     @PreAuthorize("hasAuthority('developers:read')")
     public Page<DeveloperDTO> getDevelopers(@RequestParam(defaultValue = "0") Integer page,
                                             @RequestParam(defaultValue = "3") Integer pageSize,
-                                            @RequestParam(required = false) Developer.SortField sortField,
-                                            @RequestParam(defaultValue = "SortType.DESC") SortType sortType,
+                                            @RequestParam(required = false, defaultValue = "lastName") Developer.SortField sortField,
+                                            @RequestParam(defaultValue = "DESC") SortType sortType,
                                             @RequestParam(required = false) List<String> firstNamesFilter,
                                             @RequestParam(required = false) List<String> departmentNamesFilter
     ) {

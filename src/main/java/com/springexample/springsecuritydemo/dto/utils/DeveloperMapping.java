@@ -21,6 +21,11 @@ public class DeveloperMapping {
         dto.setEmail(developer.getEmail());
         dto.setFirstName(developer.getFirstName());
         dto.setLastName(developer.getLastName());
+        if (developer.getDepartment() == null) {
+            dto.setDepartmentNameDTO(null);
+        } else {
+            dto.setDepartmentNameDTO(developer.getDepartment().getName());
+        }
         dto.setProjectDTOList(developer.getProjectSet()
                 .stream().map(projectMapping::mapToProjectDTO)
                 .collect(Collectors.toSet()));
@@ -38,4 +43,6 @@ public class DeveloperMapping {
                 .collect(Collectors.toSet()));
         return entity;
     }
+
+
 }
