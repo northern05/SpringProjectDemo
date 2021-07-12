@@ -5,6 +5,7 @@ import com.springexample.springsecuritydemo.dto.utils.DeveloperMapping;
 import com.springexample.springsecuritydemo.model.enam.SortType;
 import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.repository.DeveloperQuery;
+import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -128,18 +130,19 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         return new PageImpl<>(resultList, pageable, totalRows);
     }
 
+    @Transactional
     public void deleteDeveloper(Long id) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaDelete<Developer> criteriaDelete = cb.createCriteriaDelete(Developer.class);
         Root<Developer> developerRoot = criteriaDelete.from(Developer.class);
         criteriaDelete.where(cb.greaterThan(developerRoot.get("id"), id));
 
-        entityManager.getTransaction().begin();
+
         entityManager.createQuery(criteriaDelete).executeUpdate();
-        entityManager.getTransaction().commit();
         entityManager.close();
     }
 
+    @Transactional
     public Developer updateDeveloper(DeveloperDTO developerDTO) {
         Developer entity = developerMapping.mapToDeveloperEntity(developerDTO);
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -151,9 +154,8 @@ public class DeveloperQueryImpl implements DeveloperQuery {
         criteriaUpdate.set("department", entity.getDepartment());
         criteriaUpdate.where(cb.equal(developerRoot.get("id"), entity.getId()));
 
-        entityManager.getTransaction().begin();
         entityManager.createQuery(criteriaUpdate).executeUpdate();
-        entityManager.getTransaction().commit();
+
         entityManager.close();
         return null;
     }
