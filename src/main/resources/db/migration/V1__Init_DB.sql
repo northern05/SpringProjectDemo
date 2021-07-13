@@ -32,7 +32,7 @@ insert into hibernate_sequence values ( 1 );
 create table projects
 (
     id           bigint not null,
-    name         varchar(255) unique ,
+    name         varchar(255) unique,
     description  text,
     project_link varchar(255),
     subject      varchar(255) default 'general',
