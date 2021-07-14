@@ -41,24 +41,24 @@ public class AuthenticationRestControllerV1 {
 
     @ApiOperation(value = "This method is used to authenticate user.")
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO requestDTO){
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO requestDTO) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDTO.getEmail(), requestDTO.getPassword()));
-            User user = userRepository.findByEmail(requestDTO.getEmail()).orElseThrow(()-> new UsernameNotFoundException("User doesn't exists"));
+            User user = userRepository.findByEmail(requestDTO.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
             String token = jwtTokenProvider.createToken(requestDTO.getEmail(), user.getRole().name());
             Map<Object, Object> response = new HashMap<>();
             response.put("email", requestDTO.getEmail());
             response.put("token", token);
 
             return ResponseEntity.ok(response);
-        } catch (AuthenticationException e){
-            return  new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
         }
     }
 
     @ApiOperation(value = "This method is used to logout user.")
     @PostMapping("/logout")
-    public  void logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
     }

@@ -13,13 +13,13 @@ public class AuthController {
 
     @ApiOperation(value = "This method is used to login.")
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage() {
         return "login";
     }
 
     @ApiOperation(value = "Successfull authentication.")
     @GetMapping("/success")
-    public String getSuccessPage(){
+    public String getSuccessPage() {
         return "success";
     }
 }
