@@ -1,6 +1,5 @@
 package com.springexample.springsecuritydemo.config;
 
-import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -13,9 +12,8 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.Arrays;
 import java.util.List;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @Configuration
@@ -26,12 +24,12 @@ public class SpringFoxConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(regex("/v1/.*"))
-                .build()
-                .securityContexts(Lists.newArrayList(securityContext()))
-                .securitySchemes(Lists.newArrayList(apiKey()));
+                .paths(PathSelectors.any())
+                .build();
     }
 
     private ApiKey apiKey() {
@@ -41,7 +39,6 @@ public class SpringFoxConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/v1/.*"))
                 .build();
     }
 
@@ -50,7 +47,9 @@ public class SpringFoxConfig {
                 = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Lists.newArrayList(
+        return Arrays.asList(
                 new SecurityReference("JWT", authorizationScopes));
     }
+
+
 }

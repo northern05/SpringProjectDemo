@@ -4,6 +4,8 @@ import com.springexample.springsecuritydemo.dto.DeveloperDTO;
 import com.springexample.springsecuritydemo.dto.ProjectDTO;
 import com.springexample.springsecuritydemo.model.entity.Developer;
 import com.springexample.springsecuritydemo.service.DeveloperService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@Api(tags = "Developers")
 public class DeveloperRestControllerV1 {
 
     private final DeveloperService service;
@@ -19,7 +22,7 @@ public class DeveloperRestControllerV1 {
         this.service = service;
     }
 
-
+    @ApiOperation(value = "This method is used to get all developers.")
     @GetMapping("/developers")
     public List<DeveloperDTO> getAll() {
         return service.getDevelopers();
