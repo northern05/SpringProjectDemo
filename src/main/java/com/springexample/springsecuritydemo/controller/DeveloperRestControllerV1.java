@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-@Api(tags = "Developers")
+@Api(tags = "Developers/V1")
 public class DeveloperRestControllerV1 {
 
     private final DeveloperService service;
@@ -34,36 +34,42 @@ public class DeveloperRestControllerV1 {
 //        return service.getDeveloperById(id);
 //    }
 
+    @ApiOperation(value = "This method is used to get developer by email.")
     @GetMapping("/developers/{email}")
     @PreAuthorize("hasAuthority('developers:read')")
     public DeveloperDTO getDeveloperByEmail(@PathVariable String email) {
         return service.getDeveloperByEmail(email);
     }
 
+    @ApiOperation(value = "This method is used to get projects by developers Id.")
     @GetMapping("/developers/{developerId}/projects")
     @PreAuthorize("hasAuthority('developers:read')")
     public List<ProjectDTO> getProjectsByDevelopersId(@PathVariable Long developerId) {
         return service.getProjectsByDeveloperId(developerId);
     }
 
+    @ApiOperation(value = "This method is used to adding developer.")
     @PostMapping("/developer")
     @PreAuthorize("hasAuthority('developers:write')")
     public Developer addDeveloper(@RequestBody DeveloperDTO developerDTO) {
         return service.saveDeveloper(developerDTO);
     }
 
+    @ApiOperation(value = "This method is used to adding list of developers.")
     @PostMapping("/developers")
     @PreAuthorize("hasAuthority('developers:write')")
     public List<Developer> addDevelopers(@RequestBody List<DeveloperDTO> developersDTO) {
         return service.saveDevelopers(developersDTO);
     }
 
+    @ApiOperation(value = "This method is used to update developer")
     @PatchMapping("/developers")
     @PreAuthorize("hasAuthority('developers:write')")
     public Developer updateDeveloper(@RequestBody DeveloperDTO developerDTO) {
         return service.updateDeveloper(developerDTO);
     }
 
+    @ApiOperation(value = "This method is used to delete developer by Id")
     @DeleteMapping("/developers/{id}")
     @PreAuthorize("hasAuthority('developers:write')")
     public void deleteById(@PathVariable Long id) {

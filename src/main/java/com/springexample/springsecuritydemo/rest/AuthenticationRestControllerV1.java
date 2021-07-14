@@ -3,6 +3,8 @@ package com.springexample.springsecuritydemo.rest;
 import com.springexample.springsecuritydemo.model.entity.User;
 import com.springexample.springsecuritydemo.repository.UserRepository;
 import com.springexample.springsecuritydemo.security.JwtTokenProvider;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+@Api(tags = "Authentication token controller")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthenticationRestControllerV1 {
@@ -36,6 +39,7 @@ public class AuthenticationRestControllerV1 {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    @ApiOperation(value = "This method is used to authenticate user.")
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO requestDTO){
         try {
@@ -52,6 +56,7 @@ public class AuthenticationRestControllerV1 {
         }
     }
 
+    @ApiOperation(value = "This method is used to logout user.")
     @PostMapping("/logout")
     public  void logout(HttpServletRequest request, HttpServletResponse response){
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
